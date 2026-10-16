@@ -1,0 +1,13 @@
+{
+  "name": "puente-digital",
+  "version": "1.0.0",
+  "description": "Plataforma comunitaria de inclusión y solidaridad digital",
+  "main": "api/initiatives.js",
+  "scripts": {
+    "start": "node server-local.js"
+  },
+  "dependencies": {
+    "pg": "^8.11.5",
+    "dotenv": "^16.4.5"
+  }
+}

@@ -1,0 +1,13 @@
+# Dependencias
+node_modules/
+
+# Entorno
+.env
+.env.local
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*

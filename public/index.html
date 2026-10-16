@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puente Digital | Inclusión y Solidaridad Comunitaria</title>
+  <meta name="description" content="Plataforma social comunitaria para reducir la brecha digital y conectar iniciativas ciudadanas con voluntarios y mentores.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- BARRA DE NAVEGACIÓN -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="brand">
+        <span class="brand-icon">🌐</span>
+        <div>
+          <h1 class="brand-title">Puente Digital</h1>
+          <span class="brand-tagline">Tecnología al servicio de la comunidad</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="btnOpenInitModal" class="btn btn-primary">
+          <span class="btn-icon">＋</span> Publicar Iniciativa
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container hero-content">
+      <span class="badge hero-badge">Inclusión • Solidaridad • Alfabetización</span>
+      <h2 class="hero-title">Reducir la brecha digital es un acto de <span class="highlight">justicia social</span></h2>
+      <p class="hero-subtitle">
+        Conectamos a personas mayores, comedores, escuelas y vecinos que necesitan apoyo tecnológico con voluntarios, estudiantes y donantes dispuestos a tender una mano.
+      </p>
+      
+      <!-- CONTADORES DE IMPACTO -->
+      <div class="impact-stats">
+        <div class="stat-card">
+          <span class="stat-number" id="statInitiatives">0</span>
+          <span class="stat-label">Iniciativas Comunitarias</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="statVolunteers">0</span>
+          <span class="stat-label">Colaboraciones registradas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Ejes de Acción Digital</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PRINCIPAL: FILTROS E INICIATIVAS -->
+  <main class="container main-content">
+    <div class="section-header">
+      <div>
+        <h3 class="section-title">Iniciativas en marcha</h3>
+        <p class="section-subtitle">Explora las necesidades de la comunidad o suma tu talento.</p>
+      </div>
+
+      <!-- FILTRO POR CATEGORÍA -->
+      <div class="filter-group" id="filterGroup">
+        <button class="filter-btn active" data-category="todas">Todas</button>
+        <button class="filter-btn" data-category="alfabetizacion">📖 Alfabetización</button>
+        <button class="filter-btn" data-category="donacion">💻 Donación de Equipos</button>
+        <button class="filter-btn" data-category="tramites">🏛️ Trámites Online</button>
+        <button class="filter-btn" data-category="ciberseguridad">🛡️ Ciberseguridad</button>
+      </div>
+    </div>
+
+    <!-- CONTENEDOR DE CARDS -->
+    <div id="initiativesGrid" class="cards-grid">
+      <!-- Se carga dinámicamente con JavaScript -->
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando iniciativas comunitarias...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: CREAR NUEVA INICIATIVA -->
+  <div id="modalNewInitiative" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Publicar una Iniciativa Social Digital</h3>
+        <button class="modal-close" id="btnCloseInitModal">&times;</button>
+      </div>
+      <form id="formNewInitiative" class="modal-form">
+        <div class="form-group">
+          <label for="initTitle">Título de la iniciativa *</label>
+          <input type="text" id="initTitle" placeholder="Ej: Taller de uso de celular para abuelos" required maxlength="150">
+        </div>
+
+        <div class="form-group">
+          <label for="initCategory">Categoría social-digital *</label>
+          <select id="initCategory" required>
+            <option value="alfabetizacion">📖 Alfabetización Digital (Enseñar a usar apps, internet, etc.)</option>
+            <option value="donacion">💻 Donación y Reciclaje de Computadoras / Dispositivos</option>
+            <option value="tramites">🏛️ Acompañamiento en Trámites Online y Servicios</option>
+            <option value="ciberseguridad">🛡️ Ciberseguridad y Prevención de Estafas Vecinales</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="initDescription">Descripción detallada *</label>
+          <textarea id="initDescription" rows="4" placeholder="Explica de qué se trata, a quiénes beneficia y qué tipo de colaboración o equipamiento se necesita..." required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="initAuthor">Nombre u Organización *</label>
+            <input type="text" id="initAuthor" placeholder="Ej: Vecinos Unidos / Sofía Martínez" required maxlength="100">
+          </div>
+          <div class="form-group">
+            <label for="initContact">Contacto (Email o WhatsApp) *</label>
+            <input type="text" id="initContact" placeholder="Ej: contacto@ong.org o +54 9 11..." required maxlength="120">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelInit">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitInit">Publicar Iniciativa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VER DETALLES Y SUMARSE COMO COLABORADOR -->
+  <div id="modalCollab" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="badge" id="modalCollabBadge">Categoría</span>
+          <h3 id="modalCollabTitle" style="margin-top: 6px;">Título de la iniciativa</h3>
+        </div>
+        <button class="modal-close" id="btnCloseCollabModal">&times;</button>
+      </div>
+
+      <div class="modal-body-content">
+        <!-- DETALLES DE LA INICIATIVA -->
+        <div class="initiative-info-box">
+          <p id="modalCollabDesc" class="initiative-full-desc"></p>
+          <div class="author-tag">
+            <span>Organiza: <strong id="modalCollabAuthor"></strong></span>
+            <span>Contacto: <strong id="modalCollabContact"></strong></span>
+          </div>
+        </div>
+
+        <!-- LISTA DE COLABORADORES QUE YA SE SUMARON -->
+        <div class="collab-history">
+          <h4>Voluntarios y apoyos que se sumaron (<span id="modalCollabCount">0</span>)</h4>
+          <div id="collabList" class="collab-items-container">
+            <!-- Cargado vía JS -->
+          </div>
+        </div>
+
+        <!-- FORMULARIO PARA SUMARSE -->
+        <div class="join-form-wrapper">
+          <h4>¿Te gustaría sumarte a colaborar?</h4>
+          <p class="join-sub">Ofrece tu tiempo, donación o apoyo técnico para esta iniciativa.</p>
+          <form id="formJoin" class="modal-form">
+            <input type="hidden" id="joinInitiativeId">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="joinName">Tu Nombre completo *</label>
+                <input type="text" id="joinName" placeholder="Ej: Juan Pérez" required maxlength="100">
+              </div>
+              <div class="form-group">
+                <label for="joinContact">Tu Email o Teléfono *</label>
+                <input type="text" id="joinContact" placeholder="Ej: juan@email.com o celular" required maxlength="120">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="joinMessage">¿Cómo puedes colaborar? *</label>
+              <textarea id="joinMessage" rows="3" placeholder="Ej: Tengo una laptop vieja para donar / Puedo dar clases 2 horas los sábados..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btnSubmitJoin">Sumarme a esta causa</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICACIÓN -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p><strong>Puente Digital</strong> — Proyecto Comunitario de Inclusión Tecnológica.</p>
+      <p class="tech-stack">Stack: HTML, CSS, JavaScript | Node.js Serverless Functions | PostgreSQL | Alojado en Vercel</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
